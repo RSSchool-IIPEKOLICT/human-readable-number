@@ -1,46 +1,35 @@
-let text = ''
-
 n0 = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 n10 = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
 n1 = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
 
 module.exports = function toReadable (number) {
     let array = number.toString().split('').reverse()
-    const v = {
-        e: parseInt(array[0]),
-        d: parseInt(array[1]),
-        s: parseInt(array[2]),
-        t: parseInt(array[3])
-    }
+    const e = parseInt(array[0])
+    const d = parseInt(array[1])
+    const s = parseInt(array[2])
 
     for (let i = 0; i < array.length; i++) {
+        const n = parseInt(array[i])
         switch (i) {
             case 0:
-                if (array.length === 1 && v.e === 0) text = 'zero'
-                else if (v.d === 1 && (v.s > 0 || v.t > 0)) text = ` ${n10[v.e]}`
-                else if (v.d === 1) text = n10[v.e]
-                else if (v.e === 0) text = ''
-                else if (v.s > 0 || v.t > 0 || v.d > 0) text = ` ${n0[v.e]}`
-                else text = n0[v.e]
+                if (array.length === 1 && e === 0) array[i] = 'zero'
+                else if (d === 1 && s > 0) array[i] = ` ${n10[n]}`
+                else if (d === 1) array[i] = n10[n]
+                else if (e === 0) array[i] = ''
+                else if (s > 0 || d > 0) array[i] = ` ${n0[n]}`
+                else array[i] = n0[n]
 
-                array[i] = text
                 break
             case 1:
-                if (v.d === 0 || v.d === 1) text = ''
-                else if (v.s > 0 || v.t > 0) text = ` ${n1[v.d]}`
-                else text = n1[v.d]
+                if (d === 0 || d === 1) array[i] = ''
+                else if (s > 0) array[i] = ` ${n1[n]}`
+                else array[i] = n1[n]
 
-                array[i] = text
                 break
             case 2:
-                if (v.s === 0) text = ''
-                else if (v.t > 0) text = ` ${n0[v.s]} hundred`
-                else text = `${n0[v.s]} hundred`
+                if (s === 0) array[i] = ''
+                else array[i] = `${n0[n]} hundred`
 
-                array[i] = text
-                break
-            case 3:
-                array[i] = (v.t === 0) ? '' : `${n0[v.t]} thousand`
                 break
         }
     }
